@@ -263,12 +263,12 @@ panel_specs <- list(
   ),
   list(
     tag = "c", x = "SO4", y = "EC", colour = "#F04E37",
-    xlab = expression(SO[4]^{2-}~(mmol~L^{-1})),
+    xlab = expression(SO[4]^{2*"-"}~(mmol~L^{-1})),
     ylab = expression(EC~(dS~m^{-1}))
   ),
   list(
     tag = "d", x = "HCO3", y = "pH", colour = "#E88B70",
-    xlab = expression(HCO[3]^{-}~(meq~L^{-1})),
+    xlab = expression(HCO[3]^{"-"}~(meq~L^{-1})),
     ylab = expression(pH)
   ),
   list(
