@@ -268,7 +268,7 @@ panel_specs <- list(
   ),
   list(
     tag = "d", x = "HCO3", y = "pH", colour = "#E88B70",
-    xlab = expression(HCO[3]^{"-"}~(meq~L^{-1})),
+    xlab = expression(HCO[3]^"-"~(meq~L^{-1})),
     ylab = expression(pH)
   ),
   list(
