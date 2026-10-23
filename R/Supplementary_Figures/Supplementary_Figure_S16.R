@@ -100,7 +100,7 @@ canonical_variable <- function(x) {
 
   dplyr::case_when(
     k %in% c("rc", "reactiveca", "reactivecalcium") |
-      grepl("^reactiveca", k) ~ "RC",
+      grepl("^reactiveca|^rc(cmol|kg|g)", k) ~ "RC",
 
     k %in% c(
       "exna", "ena", "exchangena", "exchangablena",
@@ -135,7 +135,7 @@ canonical_variable <- function(x) {
       "mcf", "maomcaf3", "maomcf", "maomca3",
       "mineralassociatedcaf3"
     ) |
-      grepl("^maomcaf3|^maomcf|^maomca3", k) ~ "MCF",
+      grepl("^mcf|^maomcaf3|^maomcf|^maomca3", k) ~ "MCF",
 
     k %in% c(
       "maoc", "maomc", "mineralassociatedorganiccarbon"
