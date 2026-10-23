@@ -99,42 +99,48 @@ canonical_variable <- function(x) {
   k <- norm_key(x)
 
   dplyr::case_when(
-    k %in% c(
-      "rc", "reactiveca", "reactivecalcium"
-    ) ~ "RC",
+    k %in% c("rc", "reactiveca", "reactivecalcium") |
+      grepl("^reactiveca", k) ~ "RC",
 
     k %in% c(
       "exna", "ena", "exchangena", "exchangablena",
       "exchangeablesodium", "exchangesodium"
-    ) ~ "Ex_Na",
+    ) |
+      grepl("^exna|^ena|^exchangena|^exchangablena|^exchangeablesodium", k) ~ "Ex_Na",
 
-    k %in% c("esp", "exchangesodiumpercentage") ~ "ESP",
+    k %in% c("esp", "exchangesodiumpercentage") |
+      grepl("^esp", k) ~ "ESP",
 
     grepl("^so4", k) |
-      grepl("sulfate|sulphate", k) ~ "SO4",
+      grepl("^sulfate|^sulphate", k) ~ "SO4",
 
-    k %in% c("ec", "electricalconductivity") ~ "EC",
+    k %in% c("ec", "electricalconductivity") |
+      grepl("^electricalconductivity|^ecdsm|^ecsm", k) ~ "EC",
 
     grepl("^hco3", k) |
-      grepl("bicarbonate", k) ~ "HCO3",
+      grepl("^bicarbonate", k) ~ "HCO3",
 
     k %in% c("ph", "soilph") ~ "pH",
 
-    k %in% c("mwd", "meanweightdiameter") ~ "MWD",
+    k %in% c("mwd", "meanweightdiameter") |
+      grepl("^mwd", k) ~ "MWD",
 
     k %in% c(
       "biomass", "totalbiomass", "plantbiomass",
       "totalplantbiomass", "biomassgpot", "biomassgpot1"
-    ) ~ "Biomass",
+    ) |
+      grepl("^biomass|^totalbiomass|^plantbiomass", k) ~ "Biomass",
 
     k %in% c(
       "mcf", "maomcaf3", "maomcf", "maomca3",
       "mineralassociatedcaf3"
-    ) ~ "MCF",
+    ) |
+      grepl("^maomcaf3|^maomcf|^maomca3", k) ~ "MCF",
 
     k %in% c(
       "maoc", "maomc", "mineralassociatedorganiccarbon"
-    ) ~ "MAOC",
+    ) |
+      grepl("^maoc|^maomc|^mineralassociatedorganiccarbon", k) ~ "MAOC",
 
     TRUE ~ NA_character_
   )
