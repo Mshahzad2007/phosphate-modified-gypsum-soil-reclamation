@@ -38,7 +38,19 @@ suppressPackageStartupMessages({
 })
 
 # 2) INPUT / OUTPUT ------------------------------------------------------------
-file_path <- "Phosphate_Primed_Gypsum.xlsx"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+
+file_path <- repo_input_path("Phosphate_Primed_Gypsum.xlsx")
 sheet_hcl <- "pH_Hcl"
 sheet_p   <- "data"
 
