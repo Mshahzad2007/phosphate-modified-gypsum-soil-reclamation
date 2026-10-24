@@ -45,7 +45,19 @@ suppressPackageStartupMessages({
 ## 1) Input / output
 ## ============================================================
 
-file_path  <- "Conventional_Treatments.xlsx"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+
+file_path <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_name <- "data"
 
 out_dir <- "FigS14_POM_Control"
