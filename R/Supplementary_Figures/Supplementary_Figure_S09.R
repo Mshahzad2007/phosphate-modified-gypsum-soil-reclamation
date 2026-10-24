@@ -27,8 +27,20 @@ dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 # ------------------------------------------------------------ 
 # 1. Read data 
 # ------------------------------------------------------------ 
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+
 df <- read_excel( 
-  "Conventional_Treatments.xlsx", 
+  repo_input_path("Conventional_Treatments.xlsx"), 
   sheet = "Ca_7_30" 
 ) 
 
