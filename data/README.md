@@ -27,10 +27,10 @@ These are reduced copies of the original workbooks. Only worksheets currently re
 Raw XRD text data are stored in `data/`: `PEG.txt`, `control.txt`, `GP_Et.txt`, `PEG_CEt.txt`, `PEG_H.txt`, `PEG_HEt.txt`, `PEG_LEt.txt`, `PEG_MEt.txt`, and `PEG_VLEt.txt`.
 
 ### XPS spectra
-The XPS workbooks were exported sheet-by-sheet as CSV files under `data/XPS_CSV/`. The folder contains the O1s, Ca2p, C1s, P2p, survey, peak-table, and title sheets for both GP and PEG. The empty `Sheet1` worksheets were omitted. These CSV exports preserve the tabular data, not the original Excel workbook formatting.
+The provided XPS source workbooks were exported sheet-by-sheet as CSV files under `data/XPS_CSV/`. The folder contains the O1s, Ca2p, C1s, P2p, survey, peak-table, and title sheets for both GP and PEG. The empty `Sheet1` worksheets were omitted. The original binary `.xls` workbooks are not stored in this repository; these CSV exports preserve the tabular data, not the original Excel formatting.
 
 ### EDS data
-`SEM_PEG.csv` contains the tabular EDS data exported from the six spectra in the uploaded `SEM_PEG.xlsx` workbook.
+`SEM_PEG.csv` contains the tabular EDS data exported from the six spectra in the provided `SEM_PEG.xlsx` workbook. The original binary `.xlsx` workbook is not stored in this repository.
 
 ### EEM fluorescence data
 The original `EEM_plot_ready.csv` was too large for a single connector upload, so it is stored as 15 individually readable CSV parts in `data/EEM_parts/`. Each part includes the column header. Load the parts in numeric order and combine the rows before analysis. For example:
