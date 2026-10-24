@@ -31,9 +31,21 @@ suppressPackageStartupMessages({
 })
 
 # 2) INPUT / OUTPUT ------------------------------------------------------------
-ca_file  <- "Conventional_Treatments.xlsx"
-so4_file <- "SO4_GP_PEG_Experiment.xlsx"
-p_file   <- "Conventional_Treatments.xlsx"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+
+ca_file  <- repo_input_path("Conventional_Treatments.xlsx")
+so4_file <- repo_input_path("SO4_GP_PEG_Experiment.xlsx")
+p_file   <- repo_input_path("Conventional_Treatments.xlsx")
 
 for (f in c(ca_file, so4_file, p_file)) {
   if (!file.exists(f)) {
