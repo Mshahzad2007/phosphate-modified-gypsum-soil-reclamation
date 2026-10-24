@@ -21,9 +21,36 @@ These are reduced copies of the original workbooks. Only worksheets currently re
 - `SO4 Data` — sulfate-release measurements and supporting calculations.
 - `Graph Data` — graph-ready sulfate series used by Supplementary Figure 06.
 
+## Added characterization and spectroscopy inputs
+
+### XRD text files
+Raw XRD text data are stored in `data/`: `PEG.txt`, `control.txt`, `GP_Et.txt`, `PEG_CEt.txt`, `PEG_H.txt`, `PEG_HEt.txt`, `PEG_LEt.txt`, `PEG_MEt.txt`, and `PEG_VLEt.txt`.
+
+### XPS spectra
+The XPS workbooks were exported sheet-by-sheet as CSV files under `data/XPS_CSV/`. The folder contains the O1s, Ca2p, C1s, P2p, survey, peak-table, and title sheets for both GP and PEG. The empty `Sheet1` worksheets were omitted. These CSV exports preserve the tabular data, not the original Excel workbook formatting.
+
+### EDS data
+`SEM_PEG.csv` contains the tabular EDS data exported from the six spectra in the uploaded `SEM_PEG.xlsx` workbook.
+
+### EEM fluorescence data
+The original `EEM_plot_ready.csv` was too large for a single connector upload, so it is stored as 15 individually readable CSV parts in `data/EEM_parts/`. Each part includes the column header. Load the parts in numeric order and combine the rows before analysis. For example:
+
+```r
+eem_files <- sort(list.files(
+  file.path(data_dir, "EEM_parts"),
+  pattern = "^EEM_plot_ready_part[0-9]+\\.csv$",
+  full.names = TRUE
+))
+eem_data <- dplyr::bind_rows(lapply(
+  eem_files,
+  readr::read_csv,
+  show_col_types = FALSE
+))
+```
+
 ## Notes for reproducibility
 
-- These reduced workbooks contain the original measured values needed by the listed scripts. Formula cells in the reduced copies were replaced with their saved calculated values so that R can read the results consistently without depending on Excel recalculation. Keep the original workbooks separately if the spreadsheet formulas themselves are needed.
-- The figure scripts now look for inputs in the repository's `data/` directory, while also allowing a local copy in the working directory or parent directories.
-- Other inputs are still required for full reproduction of all figures, including XPS/EDS workbooks, XRD text files, `EEM_plot_ready.csv`, FTIR workbooks, the Figure 03 plant montage, and validation data/photographs. Those assets have not yet been added to this folder.
-- All inputs should be treated as experimental source data. Do not replace missing observations with simulated or practice values.
+- The three reduced workbooks contain the measured values needed by the listed scripts. Formula cells in those reduced copies were replaced with saved calculated values so that R can read the results consistently without depending on Excel recalculation. Keep the original workbooks separately if spreadsheet formulas or formatting are needed.
+- The figure scripts look for inputs in the repository's `data/` directory, while also allowing a local copy in the working directory or parent directories.
+- Still required for full reproduction are the FTIR workbooks, the Figure 03 plant montage, and the validation workbook and photographs.
+- Treat all inputs as experimental source data. Do not replace missing observations with simulated or practice values.
