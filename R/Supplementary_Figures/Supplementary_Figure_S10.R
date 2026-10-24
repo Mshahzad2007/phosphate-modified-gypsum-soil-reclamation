@@ -42,7 +42,19 @@ suppressPackageStartupMessages(invisible(lapply(pkgs, library,
                                                 character.only = TRUE)))
 
 # 2. SETTINGS ----------------------------------------------------------------
-file_in <- "Conventional_Treatments.xlsx"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+
+file_in <- repo_input_path("Conventional_Treatments.xlsx")
 main_sheet <- "data"
 optional_pgp_sheet <- "P+GP"   # used only if P+GP growth is absent from data
 out_dir <- "Fig_S10_NC_Horizontal_PointRange"
