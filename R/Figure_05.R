@@ -15,8 +15,20 @@ for (p in packages) {
 }
 invisible(lapply(packages, library, character.only = TRUE))
 
-file_micro <- "Conventional_Treatments.xlsx"
-file_eem <- "EEM_plot_ready.csv"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+
+file_micro <- repo_input_path("Conventional_Treatments.xlsx")
+file_eem <- repo_input_path("EEM_plot_ready.csv")
 out_dir <- "Fig5_NC_FINAL_CLEAN"
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 stopifnot(file.exists(file_micro), file.exists(file_eem))
