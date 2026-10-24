@@ -55,7 +55,19 @@ suppressPackageStartupMessages({
 ## 1) Input / output
 ## ============================================================
 
-file_in  <- "Conventional_Treatments.xlsx"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+
+file_in  <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_in <- "data"
 
 out_dir <- "Fig_S12_NC_Portrait_Physical_Recovery"
