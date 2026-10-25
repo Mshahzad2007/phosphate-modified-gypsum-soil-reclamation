@@ -40,11 +40,22 @@ invisible(lapply(need_pkgs, library, character.only = TRUE))
 # -----------------------------
 # 2. File information
 # -----------------------------
-file_name  <- "validation.xlsx"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+file_name  <- repo_input_path("validation.xlsx")
 sheet_name <- "validation"
 
 if (!file.exists(file_name)) {
-  stop("File not found. Put validation.xlsx in your current R working directory.")
+  stop("Validation workbook missing: data/validation.xlsx (or a local copy).")
 }
 
 available_sheets <- readxl::excel_sheets(file_name)
@@ -58,7 +69,11 @@ dir.create(out_dir, showWarnings = FALSE)
 # -----------------------------
 # 3. Photo files (EDIT ONLY IF NEEDED)
 # -----------------------------
-photo_dir <- "validation_photos"
+# Optional local photographs are deliberately excluded from the repository.
+# Without them, panels that show photographs remain blank; numerical panels
+# continue to use the original measurements in data/validation.xlsx.
+photo_dir <- if (dir.exists("validation_photos")) "validation_photos" else
+             if (dir.exists(file.path("data", "validation_photos"))) file.path("data", "validation_photos") else "validation_photos"
 
 photo_files <- c(
   "Mangolia" = file.path(photo_dir, "Mongolia.jpg"),
@@ -67,6 +82,10 @@ photo_files <- c(
   "Xian 03"  = file.path(photo_dir, "Xian_03.jpg"),
   "Xian 04"  = file.path(photo_dir, "Xian_04.jpg")
 )
+
+if (!all(file.exists(photo_files))) {
+  warning("Local validation photographs are absent. Photograph panels will be blank; numerical panels remain reproducible.", call. = FALSE)
+}
 
 # -----------------------------
 # 4. Read data
