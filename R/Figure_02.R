@@ -103,7 +103,7 @@ if (length(missing_inputs)) {
 # Use an explicit, ABSOLUTE output path; figure and Excel save together.
 # To change location, change project_dir (the folder holding the input files).
 project_dir <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
-out_dir <- file.path(project_dir, "Final_XRD_XPS_EDS_Figure_NC")
+out_dir <- file.path(project_dir, "outputs", "Final_XRD_XPS_EDS_Figure_NC")
 if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
 if (!dir.exists(out_dir)) stop("Unable to create output folder: ", out_dir)
 message("FIGURE 2 OUTPUT FOLDER: ", out_dir)
