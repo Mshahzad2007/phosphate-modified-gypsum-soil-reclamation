@@ -47,7 +47,7 @@ suppressPackageStartupMessages({
 # -----------------------------------------------------------------------------
 # 2. Output folder and common styling
 # -----------------------------------------------------------------------------
-out_dir <- file.path(getwd(), "Supplementary_Fig13_Output")
+out_dir <- file.path("outputs", "Supplementary_Fig13_Output")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 base_family <- "Arial"
