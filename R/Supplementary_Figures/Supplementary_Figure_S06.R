@@ -54,7 +54,7 @@ for (f in c(ca_file, so4_file, p_file)) {
   }
 }
 
-out_dir <- "Fig_S6_NC_Portrait"
+out_dir <- file.path("outputs", "Fig_S6_NC_Portrait")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 stamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
 
