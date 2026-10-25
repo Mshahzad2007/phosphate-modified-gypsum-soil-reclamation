@@ -60,7 +60,7 @@ repo_input_path <- function(filename) {
 file_path <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_name <- "data"
 
-out_dir <- "FigS14_POM_Control"
+out_dir <- file.path("outputs", "FigS14_POM_Control")
 dir.create(
   out_dir,
   showWarnings = FALSE,
