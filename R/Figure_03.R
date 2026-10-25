@@ -50,7 +50,10 @@ FIG_HEIGHT_MM <- 145
 
 # Optional original TALL montage from Fig. 3(g).
 # Place it beside the Excel file or in the R working directory.
-plant_img <- "Plant_Comparison_Tall.png"
+plant_img <- repo_input_path("Plant_Comparison_Tall.png")
+if (!file.exists(plant_img)) {
+  warning("Figure 03 plant montage is not provided. Panel (g) will contain blank photo placeholders; full visual reproduction requires the original Plant_Comparison_Tall.png.", call. = FALSE)
+}
 
 stamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
 
