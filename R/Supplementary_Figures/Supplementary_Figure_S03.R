@@ -68,8 +68,19 @@ suppressPackageStartupMessages({
 # FILES
 # =============================================================================
 
-file_gp  <- "XPS_GP.xls"
-file_peg <- "XPS_PEG.xls"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+file_gp  <- repo_input_path("XPS_GP.xls")
+file_peg <- repo_input_path("XPS_PEG.xls")
 
 out_dir <- "XPS_Supplementary_Fig_S3_NC_Portrait"
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
@@ -96,7 +107,7 @@ if (!file.exists(file_gp)) {
   stop(
     "\nFile not found: ", file_gp,
     "\nCurrent working directory:\n", getwd(),
-    "\n\nPut XPS_GP.xls in this folder."
+    "\n\nProvide the original XPS_GP.xls under data/ (the CSV exports alone cannot be read by this script)."
   )
 }
 
@@ -104,7 +115,7 @@ if (!file.exists(file_peg)) {
   stop(
     "\nFile not found: ", file_peg,
     "\nCurrent working directory:\n", getwd(),
-    "\n\nPut XPS_PEG.xls in this folder."
+    "\n\nProvide the original XPS_PEG.xls under data/ (the CSV exports alone cannot be read by this script)."
   )
 }
 
