@@ -75,7 +75,7 @@ DOT_P_CUTOFF  <- 0.05
 
 base_font <- "sans"
 
-out_dir <- "Fig_S17_NC_Portrait_Correlation_Microbial"
+out_dir <- file.path("outputs", "Fig_S17_NC_Portrait_Correlation_Microbial")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 stamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
 
