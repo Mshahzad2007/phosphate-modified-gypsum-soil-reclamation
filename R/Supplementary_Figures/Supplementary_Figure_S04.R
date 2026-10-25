@@ -22,8 +22,8 @@
 #   * readable value labels and all bars separated at final Word size
 #   * 600 dpi PNG/TIFF + editable vector PDF
 #
-# NOTE: The raw SEM_PEG.xlsx file must be in the working directory, or change
-#       file_eds below. This script does NOT replace measured data or ratios.
+# NOTE: The original SEM_PEG.xlsx is archived under data/ and resolved
+#       automatically. This script does NOT replace measured data or ratios.
 # =============================================================================
 
 rm(list = ls())
