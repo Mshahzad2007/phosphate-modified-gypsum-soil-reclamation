@@ -49,7 +49,18 @@ suppressPackageStartupMessages({
 })
 
 # 2. FILE PATHS AND FIGURE DIMENSIONS -----------------------------------------
-file_eds <- "SEM_PEG.xlsx"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+file_eds <- repo_input_path("SEM_PEG.xlsx")
 out_dir <- "Fig_S4_NatureCommunications_Portrait"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -129,7 +140,7 @@ theme_s4 <- function(base_size = BASE_SIZE) {
 if (!file.exists(file_eds)) {
   stop("SEM-EDS file not found: ", file_eds,
        "\nWorking directory: ", getwd(),
-       "\nPlace SEM_PEG.xlsx here or change file_eds.", call. = FALSE)
+       "\nPlace the original SEM_PEG.xlsx in data/. The tabular SEM_PEG.csv export is not a direct replacement for this script.", call. = FALSE)
 }
 
 available_sheets <- readxl::excel_sheets(file_eds)
