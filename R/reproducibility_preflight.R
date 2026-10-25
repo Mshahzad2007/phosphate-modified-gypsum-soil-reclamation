@@ -60,7 +60,7 @@ expected_sheets <- list(
   "data/Phosphate_Primed_Gypsum.xlsx" = c("data", "pH_Hcl"),
   "data/SO4_GP_PEG_Experiment.xlsx" = c("SO4 Data", "Graph Data"),
   "data/validation.xlsx" = c("validation"),
-  "data/SEM_PEG.xlsx" = paste0("Spectrum", 1:6),
+  "data/SEM_PEG.xlsx" = paste("Spectrum", 1:6),
   "data/FTIR/CKWS.xlsx" = c("CKWS1", "CKWS2", "CKWS3"),
   "data/FTIR/GPWS.xlsx" = c("GPWS1", "GPWS2", "GPWS3"),
   "data/FTIR/PEGWS.xlsx" = c("PEGWS1", "PEGWS2", "PEGWS3"),
@@ -76,7 +76,7 @@ expected_sheets <- list(
 
 sheet_fail <- FALSE
 if (!requireNamespace("readxl", quietly = TRUE)) {
-  warning("Install the 'readxl' R package to enable workbook sheet checks.")
+  stop("The readxl package is required to verify workbook sheets. Run R/install_dependencies.R first.")
 } else {
   for (filename in names(expected_sheets)) {
     if (!file.exists(filename)) next
@@ -94,6 +94,59 @@ if (!requireNamespace("readxl", quietly = TRUE)) {
           paste(missing, collapse = ", "), "\n", sep = "")
     } else cat("OK: ", filename, "\n", sep = "")
   }
+}
+
+# Check that the archived R source files are syntactically valid before running
+# any analysis. Parsing does NOT execute, fit models, or change data.
+cat("\nR source syntax check:\n")
+parse_fail <- FALSE
+for (script in required_script_paths) {
+  if (!file.exists(script)) next
+  result <- tryCatch(parse(file=script), error=function(e) e)
+  if (inherits(result, "error")) {
+    parse_fail <- TRUE
+    cat("PARSE FAIL: ", script, " -- ", conditionMessage(result), "\n", sep="")
+  } else {
+    cat("OK: ", script, "\n", sep="")
+  }
+}
+
+# Check that the 15 EEM parts reconstruct the intended complete table.
+# The first part has 999 rows; parts 02-14 have 1,000; part 15 has 5.
+# Each part must have the same 78-column header; this does not alter the data.
+eem_fail <- FALSE
+if (all(file.exists(eemfiles))) {
+  cat("\nEEM split data integrity check:\n")
+  expected_rows <- c(999L, rep(1000L, 13L), 5L)
+  reference_header <- NULL
+  data_rows <- integer(length(eemfiles))
+  for (i in seq_along(eemfiles)) {
+    lines <- readLines(eemfiles[[i]], warn=FALSE)
+    if (!length(lines)) {
+      eem_fail <- TRUE
+      cat("EMPTY: ", eemfiles[[i]], "\n", sep="")
+      next
+    }
+    header <- lines[[1]]
+    data_rows[[i]] <- length(lines) - 1L
+    if (is.null(reference_header)) reference_header <- header
+    if (!identical(header, reference_header)) {
+      eem_fail <- TRUE
+      cat("HEADER MISMATCH: ", eemfiles[[i]], "\n", sep="")
+    }
+    if (data_rows[[i]] != expected_rows[[i]]) {
+      eem_fail <- TRUE
+      cat("ROW COUNT MISMATCH: ", eemfiles[[i]],
+          " expected ", expected_rows[[i]],
+          ", found ", data_rows[[i]], "\n", sep="")
+    }
+  }
+  if (length(strsplit(reference_header, ",", fixed=TRUE)[[1]]) != 78L) {
+    eem_fail <- TRUE
+    cat("EEM header does not contain the expected 78 columns.\n")
+  }
+  if (sum(data_rows) != 14004L) eem_fail <- TRUE
+  cat("EEM data rows: ", sum(data_rows), " / 14004\n", sep="")
 }
 
 # Original photo files are intentionally not included in the publication
@@ -118,8 +171,8 @@ cat("\nSupplementary Figure S07 script: ",
       "present"
     } else "not in repository; script not reproducible", "\n", sep = "")
 
-if (!all(ok_data) || !all(ok_scripts) || sheet_fail) {
+if (!all(ok_data) || !all(ok_scripts) || sheet_fail || parse_fail || eem_fail) {
   stop("Preflight failed: see missing data, scripts or worksheets above.")
 }
 cat("\nPASS: All listed numerical inputs and available figure scripts exist.\n")
-cat("Note: this is a path/sheet check, NOT proof that every R analysis executes.\n")
+cat("Note: this checks paths, sheets, source parsing and EEM part dimensions; it does NOT execute statistical analyses or compare figure images.\n")
