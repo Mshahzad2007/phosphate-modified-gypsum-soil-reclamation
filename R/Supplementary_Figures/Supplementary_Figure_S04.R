@@ -61,7 +61,7 @@ repo_input_path <- function(filename) {
   filename
 }
 file_eds <- repo_input_path("SEM_PEG.xlsx")
-out_dir <- "Fig_S4_NatureCommunications_Portrait"
+out_dir <- file.path("outputs", "Fig_S4_NatureCommunications_Portrait")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 word_width_cm   <- 15.5
