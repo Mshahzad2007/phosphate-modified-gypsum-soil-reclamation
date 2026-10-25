@@ -85,7 +85,7 @@ repo_input_path <- function(filename) {
 file_path <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_name <- "data"
 
-out_dir <- "Fig_S16_Bivariate_Correlations"
+out_dir <- file.path("outputs", "Fig_S16_Bivariate_Correlations")
 
 if (!dir.exists(out_dir)) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
