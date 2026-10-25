@@ -4,14 +4,25 @@ This repository contains the R scripts and experimental inputs used to prepare m
 
 ## Reproduction instructions (start here)
 
-1. Download or clone this repository, including the `data/` folder.
-2. In RStudio, set the **working directory to the repository root**, the folder containing `README.md`, `R/` and `data/`. Do not set it to the folder containing an individual R script.
-3. Install the R packages listed at the top of the figure script you plan to run. The map in S01 additionally uses `rnaturalearthhires`, which may require a download from GitHub and system geospatial dependencies.
-4. Run the input inventory: `source("R/reproducibility_preflight.R")`, or from a terminal in the repository root run `Rscript R/reproducibility_preflight.R`.
-5. Run a complete figure script with RStudio's **Source** command, for example `source("R/Figure_05.R")`; run other scripts from their paths under `R/` and `R/Supplementary_Figures/`.
-6. Compare the generated figures and source-data spreadsheets against the manuscript. The preflight verifies filenames and spreadsheet sheets; it is **not** an end-to-end analytical or image-diff test.
+1. Download or clone this repository, including the entire `data/` folder.
+2. Open a terminal (or RStudio) **in the repository root**, the folder containing `README.md`, `R/`, and `data/`. Do not change the working directory to an individual script folder.
+3. Install required R packages with `Rscript R/install_dependencies.R`. The map in S01 additionally requires high-resolution boundaries; see *Special requirements* below.
+4. Run `Rscript R/reproducibility_preflight.R` (or `source("R/reproducibility_preflight.R")` in RStudio). It checks **40 input files**, required worksheet names, the 15 EEM parts, and whether **all 21 archived figure R scripts parse**.
+5. Generate individual figures, for example `Rscript R/Figure_05.R` in the repository-root terminal, or `source("R/Figure_05.R")` in RStudio. For supplementary figures use paths under `R/Supplementary_Figures/`.
+6. Find generated figures, tables and status files under the appropriate subfolder of **`outputs/`**. This folder is ignored by Git so generated files are not mistaken for experimental inputs.
+7. Compare generated images and tables against the submitted manuscript; record `sessionInfo()` and package versions when reporting a full reproduction. Passing preflight is **not** proof that statistical fits, plot rendering and the original figure artwork are identical.
 
-Most script paths resolve their inputs under `data/` from the repository root (or locate a local copy in the working directory). The original XPS/EDS workbooks, the nine FTIR workbooks and the validation workbook are present under these exact names without upload suffixes such as `(2)`.
+The automated GitHub Actions [reproducibility preflight](.github/workflows/reproducibility-preflight.yml) executes the same static/data checks on pushes and pull requests. It does **not** run the entire figure pipeline.
+
+All archived scripts use repository-relative source paths under `data/`, assuming they are launched from the repository root. The original XPS/EDS workbooks, nine FTIR workbooks, and validation workbook use clean filenames without upload suffixes such as `(2)`.
+
+### Special requirements
+
+- **Supplementary S01:** `sf` needs the system geospatial libraries required by your operating system; the optional high-resolution `rnaturalearthhires` dataset can be installed with `INSTALL_MAP_HIRES=1 Rscript R/install_dependencies.R` (Linux/macOS) or `$env:INSTALL_MAP_HIRES="1"; Rscript R/install_dependencies.R` (PowerShell). Internet access is required during installation.
+- **Fonts and image devices:** the scripts use Arial or sans-serif and export PDF, TIFF, and PNG. Rendering can vary across operating systems even if the numerical inputs and calculations match.
+- **Supplementary S07:** the source R script is still missing; providing it is necessary to reproduce that supplementary figure.
+- **Photographs:** Figure 03's plant montage and S11's Mongolia/Xinjiang photos are intentionally not published, so full photographic figures cannot be recreated from the repository alone. S11's numerical panels are still reproducible.
+- **Supplementary S13:** reported numerical summary values are embedded in the script. Recomputing panels (a–c) from raw sequencing/ASV records is not possible without those source datasets.
 
 ## Figure input guide
 
@@ -47,4 +58,4 @@ The original EEM dataset is stored as 15 ordered files in `data/EEM_parts/`. `Fi
 
 ### Limitations
 
-The repository has been checked for file presence, workbook sheet names, and hard-coded local paths. A complete run of all plotting and statistical scripts, verification of every output against the manuscript, and full pinning of R package versions have **not** been completed here. Reproduction of S01 may require external map-package downloads; scientific reanalysis of S13 from raw sequencing reads would require raw sequencing/ASV inputs. The unavailable S07 script must be supplied if that supplementary figure is in scope.
+The repository has been checked for file presence, expected workbook sheet names, and machine-specific file paths. The improved preflight also checks R source parsing and EEM-part row counts. A full execution of every analysis and figure, pixel-level comparison with the manuscript, and exact R package version locking have **not** been completed. GitHub Actions covers static checks, not full scientific reproducibility. Reproduction of S01 may require external map-package downloads; scientific reanalysis of S13 from raw sequencing reads would require raw sequencing/ASV inputs. The unavailable S07 script must be supplied if that supplementary figure is in scope.
