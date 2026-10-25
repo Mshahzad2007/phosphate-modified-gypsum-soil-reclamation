@@ -30,7 +30,7 @@ repo_input_path <- function(filename) {
 file_micro <- repo_input_path("Conventional_Treatments.xlsx")
 file_eem <- repo_input_path("EEM_plot_ready.csv")
 eem_parts_dir <- repo_input_path("EEM_parts")
-out_dir <- "Fig5_NC_FINAL_CLEAN"
+out_dir <- file.path("outputs", "Fig5_NC_FINAL_CLEAN")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 if (!file.exists(file_micro)) stop("Main input workbook is missing: ", file_micro)
 if (!file.exists(file_eem) && !dir.exists(eem_parts_dir)) {
