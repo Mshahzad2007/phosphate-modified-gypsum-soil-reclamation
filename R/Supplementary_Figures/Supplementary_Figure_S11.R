@@ -63,8 +63,8 @@ if (!sheet_name %in% available_sheets) {
   stop("Sheet not found. Your Excel file must contain a sheet named validation.")
 }
 
-out_dir <- "Fig_S11_Validation_Combined_A4"
-dir.create(out_dir, showWarnings = FALSE)
+out_dir <- file.path("outputs", "Fig_S11_Validation_Combined_A4")
+dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 # -----------------------------
 # 3. Photo files (EDIT ONLY IF NEEDED)
