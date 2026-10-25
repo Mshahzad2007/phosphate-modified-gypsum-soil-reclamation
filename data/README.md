@@ -37,7 +37,7 @@ The original `EEM_plot_ready.csv` was too large for a single connector upload, s
 
 ```r
 eem_files <- sort(list.files(
-  file.path(data_dir, "EEM_parts"),
+  file.path("data", "EEM_parts"),
   pattern = "^EEM_plot_ready_part[0-9]+\\.csv$",
   full.names = TRUE
 ))
