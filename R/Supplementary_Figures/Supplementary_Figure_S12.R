@@ -70,7 +70,7 @@ repo_input_path <- function(filename) {
 file_in  <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_in <- "data"
 
-out_dir <- "Fig_S12_NC_Portrait_Physical_Recovery"
+out_dir <- file.path("outputs", "Fig_S12_NC_Portrait_Physical_Recovery")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 stamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
