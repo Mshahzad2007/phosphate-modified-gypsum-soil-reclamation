@@ -54,7 +54,7 @@ file_path <- repo_input_path("Phosphate_Primed_Gypsum.xlsx")
 sheet_hcl <- "pH_Hcl"
 sheet_p   <- "data"
 
-out_dir <- "FigS5_NC_Portrait_v2"
+out_dir <- file.path("outputs", "FigS5_NC_Portrait_v2")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 stamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
