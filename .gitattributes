@@ -1,0 +1,18 @@
+# Keep repository text inputs byte-stable across Windows, macOS and Linux.
+# This also makes SOURCE_MANIFEST.csv Git blob SHA checks reliable.
+*.R     text eol=lf
+*.csv   text eol=lf
+*.txt   text eol=lf
+*.md    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+
+# Never apply text-line normalization to original instrument/Excel files.
+*.xlsx  -text
+*.xls   -text
+*.png   -text
+*.jpg   -text
+*.jpeg  -text
+*.tif   -text
+*.tiff  -text
+*.pdf   -text
