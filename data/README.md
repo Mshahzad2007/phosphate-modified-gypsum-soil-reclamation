@@ -1,6 +1,6 @@
 # Figure-generation input data
 
-These are reduced copies of the original workbooks. Only worksheets currently required by the figure scripts were retained. The original uploaded workbooks were not modified.
+The three soil and chemistry workbooks described below are reduced copies of the original experimental workbooks, retaining the sheets needed for figure generation. The original uploaded workbooks were not modified. Original binary spectroscopy and validation workbooks are separately archived in this folder.
 
 ## Workbooks and retained worksheets
 
