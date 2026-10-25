@@ -8,11 +8,13 @@ This repository contains the R scripts and experimental inputs used to prepare m
 2. Open a terminal (or RStudio) **in the repository root**, the folder containing `README.md`, `R/`, and `data/`. Do not change the working directory to an individual script folder.
 3. Install required R packages with `Rscript R/install_dependencies.R`. The map in S01 additionally requires high-resolution boundaries; see *Special requirements* below.
 4. Run `Rscript R/reproducibility_preflight.R` (or `source("R/reproducibility_preflight.R")` in RStudio). It checks **40 input files**, required worksheet names, the 15 EEM parts, and whether **all 21 archived figure R scripts parse**.
-5. Generate individual figures, for example `Rscript R/Figure_05.R` in the repository-root terminal, or `source("R/Figure_05.R")` in RStudio. For supplementary figures use paths under `R/Supplementary_Figures/`.
-6. Find generated figures, tables and status files under the appropriate subfolder of **`outputs/`**. This folder is ignored by Git so generated files are not mistaken for experimental inputs.
-7. Compare generated images and tables against the submitted manuscript; record `sessionInfo()` and package versions when reporting a full reproduction. Passing preflight is **not** proof that statistical fits, plot rendering and the original figure artwork are identical.
+5. Generate an individual figure, for example `Rscript R/Figure_05.R` in the repository-root terminal or `source("R/Figure_05.R")` in RStudio. **Or run every archived figure with one command: `Rscript R/run_all_figures.R`**. Use `Rscript R/run_all_figures.R main` for Figures 02–06 only, or `Rscript R/run_all_figures.R supplementary` for the available S01–S17 scripts (excluding missing S07). The runner launches each figure in a separate R process so scripts that clear their workspace cannot affect other figures.
+6. Find generated figures, tables and status files under their subfolders of **`outputs/`**. The runner additionally records `outputs/reproduction_summary.csv`, figure-specific logs in `outputs/_logs/`, and the active R/package versions. This entire folder is ignored by Git so generated outputs are not mistaken for experimental inputs.
+7. Compare generated images and tables against the submitted manuscript. Passing preflight or obtaining a successful script exit code is **not** proof that the statistical fits and artwork are identical.
 
 The automated GitHub Actions [reproducibility preflight](.github/workflows/reproducibility-preflight.yml) executes the same static/data checks on pushes and pull requests. It does **not** run the entire figure pipeline.
+
+The required-source [input manifest](data/SOURCE_MANIFEST.csv) records exact byte sizes and Git blob SHA-1 hashes for all 40 mandatory inputs. The preflight checks those sizes and verifies their hashes when Git is available. A `.gitattributes` file preserves LF text line endings across Windows, Linux, and macOS.
 
 All archived scripts use repository-relative source paths under `data/`, assuming they are launched from the repository root. The original XPS/EDS workbooks, nine FTIR workbooks, and validation workbook use clean filenames without upload suffixes such as `(2)`.
 
