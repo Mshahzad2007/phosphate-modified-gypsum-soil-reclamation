@@ -150,8 +150,13 @@ if (!requireNamespace("readxl", quietly = TRUE)) {
 # any analysis. Parsing does NOT execute, fit models, or change data.
 cat("\nR source syntax check:\n")
 parse_fail <- FALSE
-for (script in required_script_paths) {
-  if (!file.exists(script)) next
+for (script in c(required_script_paths,
+                 "R/install_dependencies.R", "R/run_all_figures.R")) {
+  if (!file.exists(script)) {
+    parse_fail <- TRUE
+    cat("MISSING SCRIPT: ", script, "\n", sep="")
+    next
+  }
   result <- tryCatch(parse(file=script), error=function(e) e)
   if (inherits(result, "error")) {
     parse_fail <- TRUE
