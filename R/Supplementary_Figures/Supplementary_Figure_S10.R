@@ -57,7 +57,7 @@ repo_input_path <- function(filename) {
 file_in <- repo_input_path("Conventional_Treatments.xlsx")
 main_sheet <- "data"
 optional_pgp_sheet <- "P+GP"   # used only if P+GP growth is absent from data
-out_dir <- "Fig_S10_NC_Horizontal_PointRange"
+out_dir <- file.path("outputs", "Fig_S10_NC_Horizontal_PointRange")
 
 # The order requested for all panels.
 trt_levels <- c("CK", "GP", "P+GP", "PEG")
