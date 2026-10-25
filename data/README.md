@@ -27,10 +27,10 @@ These are reduced copies of the original workbooks. Only worksheets currently re
 Raw XRD text data are stored in `data/`: `PEG.txt`, `control.txt`, `GP_Et.txt`, `PEG_CEt.txt`, `PEG_H.txt`, `PEG_HEt.txt`, `PEG_LEt.txt`, `PEG_MEt.txt`, and `PEG_VLEt.txt`.
 
 ### XPS spectra
-The provided XPS source workbooks were exported sheet-by-sheet as CSV files under `data/XPS_CSV/`. The folder contains the O1s, Ca2p, C1s, P2p, survey, peak-table, and title sheets for both GP and PEG. The empty `Sheet1` worksheets were omitted. The original binary `.xls` workbooks are not stored in this repository; these CSV exports preserve the tabular data, not the original Excel formatting.
+The original binary source workbooks **`data/XPS_GP.xls`** and **`data/XPS_PEG.xls`** are now archived unchanged, alongside sheet-by-sheet tabular CSV exports under `data/XPS_CSV/`. The CSV folder contains O1s, Ca2p, C1s, P2p, survey, peak-table, and title data for both treatments. CSV exports are supplemental and do not preserve Excel formatting.
 
 ### EDS data
-`SEM_PEG.csv` contains the tabular EDS data exported from the six spectra in the provided `SEM_PEG.xlsx` workbook. The original binary `.xlsx` workbook is not stored in this repository.
+The original six-spectrum workbook **`data/SEM_PEG.xlsx`** is now archived unchanged. `SEM_PEG.csv` additionally contains the tabular EDS export; Supplementary Figure 04 reads the original workbook.
 
 ### EEM fluorescence data
 The original `EEM_plot_ready.csv` was too large for a single connector upload, so it is stored as 15 individually readable CSV parts in `data/EEM_parts/`. Each part includes the column header. **`R/Figure_05.R` now loads and combines the 15 parts automatically when the single CSV is unavailable**, with checks for a complete 14,004-row, 78-column dataset. The original measurements are unchanged. For use outside Figure 05, the parts can be combined manually in numeric order:
@@ -48,9 +48,17 @@ eem_data <- dplyr::bind_rows(lapply(
 ))
 ```
 
+### FTIR workbooks
+
+Nine original binary FTIR workbooks are archived under `data/FTIR/`: `CKWS.xlsx`, `GPWS.xlsx`, `PEGWS.xlsx`, `PCK.xlsx`, `PGP.xlsx`, `PPEG.xlsx`, `MCK.xlsx`, `MGP.xlsx`, and `MPEG.xlsx`. Figure 06 resolves that folder automatically from the repository root, without a machine-specific Windows path.
+
+### Quantitative validation
+
+The original **`data/validation.xlsx`** workbook contains the `validation` worksheet required by Supplementary Figure 11. The associated Mongolia and Xinjiang photographs are intentionally not published; the script creates blank placeholders in their absence.
+
 ## Notes for reproducibility
 
 - The three reduced workbooks contain the measured values needed by the listed scripts. Formula cells in those reduced copies were replaced with saved calculated values so that R can read the results consistently without depending on Excel recalculation. Keep the original workbooks separately if spreadsheet formulas or formatting are needed.
 - The figure scripts look for inputs in the repository's `data/` directory, while also allowing a local copy in the working directory or parent directories.
-- Still required for full reproduction are the FTIR workbooks, the Figure 03 plant montage, and the validation workbook and photographs.
+- The required **numerical inputs** are now present. Figure 03's plant montage and Figure S11's photographs are intentionally not provided, so their complete photographic panels cannot be recreated from this repository alone. The script for Figure S07 is also absent. The Figure S13 script uses reported summaries instead of recomputing the first three panels from raw sequencing reads.
 - Treat all inputs as experimental source data. Do not replace missing observations with simulated or practice values.
