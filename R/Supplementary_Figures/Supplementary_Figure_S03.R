@@ -82,7 +82,7 @@ repo_input_path <- function(filename) {
 file_gp  <- repo_input_path("XPS_GP.xls")
 file_peg <- repo_input_path("XPS_PEG.xls")
 
-out_dir <- "XPS_Supplementary_Fig_S3_NC_Portrait"
+out_dir <- file.path("outputs", "XPS_Supplementary_Fig_S3_NC_Portrait")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 scan_sheets <- c("C1s Scan", "O1s Scan", "Ca2p Scan")
