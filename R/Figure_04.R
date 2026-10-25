@@ -68,7 +68,7 @@ repo_input_path <- function(filename) {
 file_in <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_in <- "data"
 
-out_dir <- "Fig4_NC_Final_Corrected"
+out_dir <- file.path("outputs", "Fig4_NC_Final_Corrected")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 stamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
