@@ -56,8 +56,8 @@ repo_input_path <- function(filename) {
 file_path  <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_data <- "data"
 
-data_dir <- "E:/PHD/Traditional_Amendments/FTIR_WSMP"
-out_dir  <- file.path(data_dir, "Fig6_NC_Portrait")
+data_dir <- repo_input_path("FTIR")  # Nine original workbooks in data/FTIR/
+out_dir  <- file.path("outputs", "Fig6_NC_Portrait")
 if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
 
 # -----------------------------
