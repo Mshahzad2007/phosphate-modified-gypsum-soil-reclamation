@@ -68,10 +68,21 @@ suppressPackageStartupMessages({
 # INPUT FILES
 # Put these files in your working directory
 # ----------------------------------------------------------------------------
-xps_gp_file   <- "XPS_GP.xls"
-xps_peg_file  <- "XPS_PEG.xls"
-xrd_file      <- "PEG.txt"
-eds_file      <- "SEM_PEG.xlsx"
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+xps_gp_file   <- repo_input_path("XPS_GP.xls")
+xps_peg_file  <- repo_input_path("XPS_PEG.xls")
+xrd_file      <- repo_input_path("PEG.txt")
+eds_file      <- repo_input_path("SEM_PEG.xlsx")
 
 # All four numerical input files are mandatory; no image inputs are needed.
 required_inputs <- c(xps_gp_file, xps_peg_file, xrd_file, eds_file)
@@ -81,8 +92,8 @@ if (length(missing_inputs)) {
     "Figure 2 cannot run: required source file(s) not found: ",
     paste(missing_inputs, collapse = ", "), "\n",
     "Current working directory: ", normalizePath(getwd(), winslash = "/"), "\n",
-    "Put the original input files here, or setwd() to their folder, ",
-    "then SOURCE THE ENTIRE SCRIPT again."
+    "Place the original XPS_GP.xls, XPS_PEG.xls and SEM_PEG.xlsx in data/, ",
+    "then SOURCE THE ENTIRE SCRIPT again. CSV-only exports cannot be read by this script as written."
   )
 }
 
