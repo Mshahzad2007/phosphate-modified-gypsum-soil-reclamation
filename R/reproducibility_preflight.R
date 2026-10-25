@@ -51,6 +51,56 @@ report_paths <- function(paths, label) {
 ok_data <- report_paths(mandatory_data, "Required numerical/spectroscopic inputs")
 ok_scripts <- report_paths(required_script_paths, "Currently published figure scripts")
 
+# Verify required-file sizes against the archived manifest. When Git is
+# installed, also verify each file's exact content with Git's blob SHA-1.
+manifest_fail <- FALSE
+manifest_path <- file.path("data", "SOURCE_MANIFEST.csv")
+if (!file.exists(manifest_path)) {
+  manifest_fail <- TRUE
+  cat("Missing data/SOURCE_MANIFEST.csv\n")
+} else {
+  manifest <- read.csv(manifest_path, stringsAsFactors=FALSE)
+  if (!identical(names(manifest), c("path", "bytes", "git_blob_sha"))) {
+    stop("SOURCE_MANIFEST.csv has unexpected columns.")
+  }
+  if (nrow(manifest) != 40L || !setequal(manifest$path, mandatory_data)) {
+    manifest_fail <- TRUE
+    cat("Manifest paths do not match all 40 required inputs.\n")
+  }
+  git_path <- Sys.which("git")
+  cat("\nInput manifest verification (40 files):\n")
+  verified_count <- 0L
+  for (i in seq_len(nrow(manifest))) {
+    file <- manifest$path[[i]]
+    if (!file.exists(file)) next
+    actual_size <- file.info(file)$size
+    if (is.na(actual_size) || actual_size != manifest$bytes[[i]]) {
+      manifest_fail <- TRUE
+      cat("BYTE-SIZE MISMATCH: ", file, "\n", sep="")
+      next
+    }
+    if (nzchar(git_path)) {
+      actual_hash <- tryCatch(
+        suppressWarnings(system2(git_path,
+                                 args=c("hash-object", shQuote(file)),
+                                 stdout=TRUE, stderr=FALSE)),
+        error=function(e) character(0)
+      )
+      if (length(actual_hash) != 1L ||
+          !identical(tolower(actual_hash[[1]]),
+                     tolower(manifest$git_blob_sha[[i]]))) {
+        manifest_fail <- TRUE
+        cat("CONTENT HASH MISMATCH: ", file, "\n", sep="")
+        next
+      }
+    }
+    verified_count <- verified_count + 1L
+  }
+  cat("Verified files: ", verified_count, " / 40",
+      if (nzchar(git_path)) " (byte size + Git blob hash)" else " (byte size only; Git not found)",
+      "\n", sep="")
+}
+
 cat("\nWorkbook sheet check:\n")
 expected_sheets <- list(
   "data/Conventional_Treatments.xlsx" = c(
@@ -171,8 +221,8 @@ cat("\nSupplementary Figure S07 script: ",
       "present"
     } else "not in repository; script not reproducible", "\n", sep = "")
 
-if (!all(ok_data) || !all(ok_scripts) || sheet_fail || parse_fail || eem_fail) {
+if (!all(ok_data) || !all(ok_scripts) || sheet_fail || parse_fail || eem_fail || manifest_fail) {
   stop("Preflight failed: see missing data, scripts or worksheets above.")
 }
 cat("\nPASS: All listed numerical inputs and available figure scripts exist.\n")
-cat("Note: this checks paths, sheets, source parsing and EEM part dimensions; it does NOT execute statistical analyses or compare figure images.\n")
+cat("Note: this checks paths, workbook sheets, source parsing, EEM parts and source-file integrity; it does NOT execute statistical analyses or compare figure images.\n")
