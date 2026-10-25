@@ -78,7 +78,7 @@ repo_input_path <- function(filename) {
 file_path  <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_name <- "data"
 
-out_dir <- "Supplementary_Fig8_Indices"
+out_dir <- file.path("outputs", "Supplementary_Fig8_Indices")
 
 dir.create(
   out_dir,
