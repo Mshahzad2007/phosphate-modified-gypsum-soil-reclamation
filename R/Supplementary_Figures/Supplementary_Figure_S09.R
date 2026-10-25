@@ -21,7 +21,7 @@ library(tibble)
 # ------------------------------------------------------------ 
 # 0. Output folder 
 # ------------------------------------------------------------ 
-out_dir <- "Fig_S9_NC_Portrait_Original_Style" 
+out_dir <- file.path("outputs", "Fig_S9_NC_Portrait_Original_Style")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE) 
 
 # ------------------------------------------------------------ 
