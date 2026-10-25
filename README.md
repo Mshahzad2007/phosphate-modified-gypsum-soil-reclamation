@@ -22,9 +22,11 @@ The relevant R scripts now resolve these workbook inputs from the repository's `
 4. Run the relevant script under `R/` or `R/Supplementary_Figures/`.
 5. Check the generated figure and statistics against the manuscript before use.
 
-## Inputs still to be added
+## Data availability and remaining setup
 
-The repository is not yet a complete one-click reproduction package. Some scripts still require additional assets that have not been added to `data/`, including XPS workbooks and scans, `SEM_PEG.xlsx`, XRD text files, `EEM_plot_ready.csv`, FTIR workbooks, the Figure 03 plant montage, and validation workbooks/photographs. These requirements will be documented as the remaining assets are added.
+The `data/` folder already contains XRD text files, nine original FTIR workbooks in `data/FTIR/`, XPS sheet-level CSV exports, EDS tabular CSV data, and all 15 parts of the original EEM fluorescence dataset in `data/EEM_parts/`. `R/Figure_05.R` automatically combines the EEM parts in numerical order and checks their completeness, so a standalone `EEM_plot_ready.csv` is **not** required.
+
+Full one-click reproduction still needs the original XPS/EDS workbooks expected by some scripts (or compatible CSV readers), the optional Figure 03 plant-photo montage, the Supplementary Figure 11 validation workbook and/or local photo paths, and removal of remaining hard-coded local paths from other figure scripts. See [`data/README.md`](data/README.md) for details. Validation photographs may remain local and need not be published.
 
 ## Data integrity
 
