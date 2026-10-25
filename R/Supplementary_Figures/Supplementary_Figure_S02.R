@@ -37,8 +37,19 @@ library(grid)
 # ----------------------------------------------------------------------------
 # 1. PATHS AND OUTPUT SETTINGS
 # ----------------------------------------------------------------------------
-xrd_dir <- "E:/PHD/Traditional_Amendments/PEG_dosage"
-out_dir <- file.path(xrd_dir, "XRD_Figures", "Fig_S2_Portrait_Zoomed")
+repo_input_path <- function(filename) {
+  candidates <- c(
+    filename,
+    file.path("data", filename),
+    file.path("..", "data", filename),
+    file.path("..", "..", "data", filename)
+  )
+  matches <- candidates[file.exists(candidates)]
+  if (length(matches)) return(matches[[1]])
+  filename
+}
+xrd_dir <- dirname(repo_input_path("control.txt"))
+out_dir <- file.path("outputs", "Fig_S2_Portrait_Zoomed")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 # Change only these values if your Word layout has different available space.
