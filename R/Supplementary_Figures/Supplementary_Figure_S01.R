@@ -45,7 +45,7 @@ suppressPackageStartupMessages({
 })
 
 # 2. OUTPUT AND GLOBAL SETTINGS -----------------------------------------------
-out_dir <- "Fig_S1_NC_Portrait"
+out_dir <- file.path("outputs", "Fig_S1_NC_Portrait")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 word_width_cm  <- 15.5
