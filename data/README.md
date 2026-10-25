@@ -56,6 +56,10 @@ Nine original binary FTIR workbooks are archived under `data/FTIR/`: `CKWS.xlsx`
 
 The original **`data/validation.xlsx`** workbook contains the `validation` worksheet required by Supplementary Figure 11. The associated Mongolia and Xinjiang photographs are intentionally not published; the script creates blank placeholders in their absence.
 
+## Input integrity manifest
+
+[`SOURCE_MANIFEST.csv`](SOURCE_MANIFEST.csv) lists the paths, byte sizes and Git blob SHA-1 hashes of all **40 required numerical/spectroscopic inputs**. It records the exact byte content currently archived in GitHub, including the nine original FTIR workbooks, original XPS/EDS workbooks, validation workbook, 15 EEM parts, nine XRD files and three reduced main workbooks. Run `Rscript R/reproducibility_preflight.R` from the repository root to check the inventory, exact file sizes, and (when Git is installed) the hashes. This manifest does not establish instrument calibration or the scientific validity of the underlying observations.
+
 ## Notes for reproducibility
 
 - The three reduced workbooks contain the measured values needed by the listed scripts. Formula cells in those reduced copies were replaced with saved calculated values so that R can read the results consistently without depending on Excel recalculation. Keep the original workbooks separately if spreadsheet formulas or formatting are needed.
