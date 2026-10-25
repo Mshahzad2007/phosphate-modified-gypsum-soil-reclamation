@@ -403,8 +403,7 @@ if (nrow(df_raw) == 0) {
 # =========================================================
 # 4. OUTPUT FOLDER
 # =========================================================
-out_base <- if (file.exists(file_in)) dirname(normalizePath(file_in)) else getwd()
-out_dir  <- file.path(out_base, "Fig3_NC_original_layout_compact_narrow_bars")
+out_dir <- file.path("outputs", "Fig3_NC_original_layout_compact_narrow_bars")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 # =========================================================
