@@ -1,0 +1,26 @@
+name: Reproducibility preflight
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  static-data-and-source-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out complete repository
+        uses: actions/checkout@v4
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - name: Install workbook reader for full sheet validation
+        run: Rscript -e 'install.packages("readxl", repos="https://cloud.r-project.org")'
+      - name: Verify files, worksheet names, R parsing and EEM-part inventory
+        run: Rscript R/reproducibility_preflight.R
+
+# This workflow deliberately does not fit models or regenerate figure images.
+# Full reproduction also depends on plotting packages, system libraries,
+# and original photographic assets that the authors have chosen not to publish.
