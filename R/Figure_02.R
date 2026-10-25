@@ -66,7 +66,7 @@ suppressPackageStartupMessages({
 
 # ----------------------------------------------------------------------------
 # INPUT FILES
-# Put these files in your working directory
+# With the repository root as working directory, inputs resolve from data/
 # ----------------------------------------------------------------------------
 repo_input_path <- function(filename) {
   candidates <- c(
