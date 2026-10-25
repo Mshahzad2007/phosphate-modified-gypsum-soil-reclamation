@@ -1,7 +1,7 @@
 ##### 14/10/26
-# Inputs in R working directory:
-#   Conventional_Treatments.xlsx (sheets: data, Phylum, Genus_repli)
-#   EEM_plot_ready.csv
+# Inputs: data/Conventional_Treatments.xlsx (sheets: data, Phylum, Genus_repli)
+# EEM: either data/EEM_plot_ready.csv, or the 15 original ordered parts
+# stored in data/EEM_parts/. Both sources produce the same input table.
 ################################################################################
 
 rm(list = ls())
@@ -29,9 +29,13 @@ repo_input_path <- function(filename) {
 
 file_micro <- repo_input_path("Conventional_Treatments.xlsx")
 file_eem <- repo_input_path("EEM_plot_ready.csv")
+eem_parts_dir <- repo_input_path("EEM_parts")
 out_dir <- "Fig5_NC_FINAL_CLEAN"
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
-stopifnot(file.exists(file_micro), file.exists(file_eem))
+if (!file.exists(file_micro)) stop("Main input workbook is missing: ", file_micro)
+if (!file.exists(file_eem) && !dir.exists(eem_parts_dir)) {
+  stop("EEM input missing: provide EEM_plot_ready.csv or data/EEM_parts/.")
+}
 
 trt <- c("CK", "GP", "PEG")
 trt_cols <- c(CK="#000000", GP="#148B8E", PEG="#65C3CD")
@@ -292,7 +296,48 @@ pD <- ggplot(gen_plot,aes(Treatment,Genus,fill=Z)) +
         plot.margin=margin(2,2,3,4))
 
 # =============== (e) EEM SPECTRA & SHARED INTENSITY BAR ===============
-eem_raw <- readr::read_csv(file_eem,show_col_types=FALSE)
+# Prefer the original single CSV when available. Otherwise, reconstruct it
+# by appending all 15 GitHub parts in numeric order, without altering values.
+if (file.exists(file_eem)) {
+  eem_raw <- readr::read_csv(file_eem, show_col_types=FALSE)
+  message("EEM source: ", normalizePath(file_eem, winslash="/"))
+} else {
+  eem_files <- file.path(
+    eem_parts_dir, sprintf("EEM_plot_ready_part%02d.csv", 1:15)
+  )
+  missing_parts <- eem_files[!file.exists(eem_files)]
+  if (length(missing_parts)) {
+    stop("Incomplete EEM dataset; missing file(s): ",
+         paste(basename(missing_parts), collapse=", "))
+  }
+  present_parts <- list.files(
+    eem_parts_dir, pattern="^EEM_plot_ready_part[0-9]+\\.csv$"
+  )
+  if (!setequal(present_parts, basename(eem_files))) {
+    stop("Unexpected EEM part inventory in ", eem_parts_dir,
+         ". Expected parts 01 through 15 only.")
+  }
+  part_headers <- vapply(
+    eem_files, function(f) readLines(f, n=1L, warn=FALSE), character(1)
+  )
+  if (any(part_headers != part_headers[[1L]])) {
+    stop("EEM CSV column headers differ across the 15 parts.")
+  }
+  eem_raw <- dplyr::bind_rows(lapply(eem_files, function(f) {
+    readr::read_csv(
+      f, show_col_types=FALSE,
+      col_types=readr::cols(
+        .default=readr::col_double(), Treatment=readr::col_character()
+      )
+    )
+  }))
+  if (nrow(eem_raw) != 14004L || ncol(eem_raw) != 78L) {
+    stop("EEM reconstruction failed: expected 14,004 data rows and 78 columns; got ",
+         nrow(eem_raw), " rows and ", ncol(eem_raw), " columns.")
+  }
+  message("EEM source: 15 original CSV parts; reconstructed ",
+          nrow(eem_raw), " rows and ", ncol(eem_raw), " columns.")
+}
 em_cols <- grep("^Em_",names(eem_raw),value=TRUE)
 if (!length(em_cols)) stop("No Em_ columns found in EEM_plot_ready.csv")
 if (!all(c("Treatment","Ex_nm") %in% names(eem_raw)))
