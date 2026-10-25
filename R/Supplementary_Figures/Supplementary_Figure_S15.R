@@ -65,7 +65,7 @@ repo_input_path <- function(filename) {
 file_path <- repo_input_path("Conventional_Treatments.xlsx")
 sheet_name <- "data"
 
-out_dir <- "Fig_S15_Fraction_Level_STP_Model_6Panels"
+out_dir <- file.path("outputs", "Fig_S15_Fraction_Level_STP_Model_6Panels")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 stamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
