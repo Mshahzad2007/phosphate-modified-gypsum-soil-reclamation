@@ -1,0 +1,14 @@
+# Regenerated figures and statistics are local artifacts, not source data.
+outputs/
+
+# RStudio local state
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Temporary exports and operating-system files
+.DS_Store
+Thumbs.db
+~$*.xlsx
+~$*.xls
