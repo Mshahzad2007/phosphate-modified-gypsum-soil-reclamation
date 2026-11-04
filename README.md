@@ -31,7 +31,7 @@ All archived scripts use repository-relative source paths under `data/`, assumin
 | Script(s) | Required numerical input | Status |
 | --- | --- | --- |
 | Figure 02 | `data/PEG.txt`, `data/XPS_GP.xls`, `data/XPS_PEG.xls`, `data/SEM_PEG.xlsx` | Present |
-| Figure 03 | `data/Conventional_Treatments.xlsx` (`data` sheet) | Present; original plant-photo montage is not included |
+| Figure 03 | `data/Conventional_Treatments.xlsx` (`data` sheet) | Present |
 | Figure 04 | `data/Conventional_Treatments.xlsx` (`data` sheet) | Present |
 | Figure 05 | `data/Conventional_Treatments.xlsx` plus `data/EEM_parts/` | Present; all 15 EEM parts are combined automatically |
 | Figure 06 | `data/Conventional_Treatments.xlsx` plus nine workbooks in `data/FTIR/` | Present; no local Windows path required |
