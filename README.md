@@ -1,14 +1,14 @@
 # Phosphate-modified gypsum drives sustainable restoration of saline-alkaline soils through calcium regulation
 
-This repository contains the R scripts and experimental inputs used to prepare manuscript Figures 02–06 and available Supplementary Figures S01–S17 (except S07, whose script is not currently archived here).
+This repository contains the R scripts and experimental inputs used to prepare manuscript Figures 02–06 and Supplementary Figures S01–S17.
 
 ## Reproduction instructions (start here)
 
 1. Download or clone this repository, including the entire `data/` folder.
 2. Open a terminal (or RStudio) **in the repository root**, the folder containing `README.md`, `R/`, and `data/`. Do not change the working directory to an individual script folder.
 3. Install required R packages with `Rscript R/install_dependencies.R`. The map in S01 additionally requires high-resolution boundaries; see *Special requirements* below.
-4. Run `Rscript R/reproducibility_preflight.R` (or `source("R/reproducibility_preflight.R")` in RStudio). It checks **40 input files**, required worksheet names, the 15 EEM parts, and whether **all 21 archived figure R scripts parse**.
-5. Generate an individual figure, for example `Rscript R/Figure_05.R` in the repository-root terminal or `source("R/Figure_05.R")` in RStudio. **Or run every archived figure with one command: `Rscript R/run_all_figures.R`**. Use `Rscript R/run_all_figures.R main` for Figures 02–06 only, or `Rscript R/run_all_figures.R supplementary` for the available S01–S17 scripts (excluding missing S07). The runner launches each figure in a separate R process so scripts that clear their workspace cannot affect other figures.
+4. Run `Rscript R/reproducibility_preflight.R` (or `source("R/reproducibility_preflight.R")` in RStudio). It checks **40 input files**, required worksheet names, the 15 EEM parts, and whether **all 22 archived figure R scripts parse**.
+5. Generate an individual figure, for example `Rscript R/Figure_05.R` in the repository-root terminal or `source("R/Figure_05.R")` in RStudio. **Or run every archived figure with one command: `Rscript R/run_all_figures.R`**. Use `Rscript R/run_all_figures.R main` for Figures 02–06 only, or `Rscript R/run_all_figures.R supplementary` for the available S01–S17 scripts (including S07). The runner launches each figure in a separate R process so scripts that clear their workspace cannot affect other figures.
 6. Find generated figures, tables and status files under their subfolders of **`outputs/`**. The runner additionally records `outputs/reproduction_summary.csv`, figure-specific logs in `outputs/_logs/`, and the active R/package versions. This entire folder is ignored by Git so generated outputs are not mistaken for experimental inputs.
 7. Compare generated images and tables against the submitted manuscript. Passing preflight or obtaining a successful script exit code is **not** proof that the statistical fits and artwork are identical.
 
@@ -22,7 +22,7 @@ All archived scripts use repository-relative source paths under `data/`, assumin
 
 - **Supplementary S01:** `sf` needs the system geospatial libraries required by your operating system; the optional high-resolution `rnaturalearthhires` dataset can be installed with `INSTALL_MAP_HIRES=1 Rscript R/install_dependencies.R` (Linux/macOS) or `$env:INSTALL_MAP_HIRES="1"; Rscript R/install_dependencies.R` (PowerShell). Internet access is required during installation.
 - **Fonts and image devices:** the scripts use Arial or sans-serif and export PDF, TIFF, and PNG. Rendering can vary across operating systems even if the numerical inputs and calculations match.
-- **Supplementary S07:** the source R script is still missing; providing it is necessary to reproduce that supplementary figure.
+- **Supplementary S07:** four-treatment (CK, GP, P+GP, PEG) analyses read the `data` and `P+GP` worksheets in `data/Conventional_Treatments.xlsx`. The script produces eight soil-chemistry panels and ANOVA/Tukey audit tables; execution and comparison to the submitted figure remain to be verified.
 - **Photographs:** Figure 03's plant montage and S11's Mongolia/Xinjiang photos are intentionally not published, so full photographic figures cannot be recreated from the repository alone. S11's numerical panels are still reproducible.
 - **Supplementary S13:** reported numerical summary values are embedded in the script. Recomputing panels (a–c) from raw sequencing/ASV records is not possible without those source datasets.
 
@@ -41,7 +41,7 @@ All archived scripts use repository-relative source paths under `data/`, assumin
 | Supplementary S04 | `data/SEM_PEG.xlsx` | Present |
 | Supplementary S05 | `data/Phosphate_Primed_Gypsum.xlsx` | Present |
 | Supplementary S06 | `data/Conventional_Treatments.xlsx`, `data/SO4_GP_PEG_Experiment.xlsx` | Present |
-| Supplementary S07 | R script is not in this repository | **Script unavailable** |
+| Supplementary S07 | `data/Conventional_Treatments.xlsx` (`data` and `P+GP` worksheets) | Script present; full execution/figure comparison not yet verified |
 | Supplementary S08–S10 | `data/Conventional_Treatments.xlsx` | Present |
 | Supplementary S11 | `data/validation.xlsx` (`validation` sheet) | Present; photos are intentionally not published |
 | Supplementary S12 | `data/Conventional_Treatments.xlsx` including `P+GP` | Present |
@@ -60,4 +60,4 @@ The original EEM dataset is stored as 15 ordered files in `data/EEM_parts/`. `Fi
 
 ### Limitations
 
-The repository has been checked for file presence, expected workbook sheet names, and machine-specific file paths. The improved preflight also checks R source parsing and EEM-part row counts. A full execution of every analysis and figure, pixel-level comparison with the manuscript, and exact R package version locking have **not** been completed. GitHub Actions covers static checks, not full scientific reproducibility. Reproduction of S01 may require external map-package downloads; scientific reanalysis of S13 from raw sequencing reads would require raw sequencing/ASV inputs. The unavailable S07 script must be supplied if that supplementary figure is in scope.
+The repository has been checked for file presence, expected workbook sheet names, and machine-specific file paths. The improved preflight also checks R source parsing and EEM-part row counts. A full execution of every analysis and figure, pixel-level comparison with the manuscript, and exact R package version locking have **not** been completed. GitHub Actions covers static checks, not full scientific reproducibility. Reproduction of S01 may require external map-package downloads; scientific reanalysis of S13 from raw sequencing reads would require raw sequencing/ASV inputs. The newly added S07 script must still be executed and its outputs compared against the submitted Supplementary Figure S07.
