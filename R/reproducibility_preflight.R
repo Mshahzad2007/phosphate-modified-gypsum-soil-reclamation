@@ -38,7 +38,7 @@ mandatory_data <- c(
 required_script_paths <- c(
   file.path("R", sprintf("Figure_%02d.R", 2:6)),
   file.path("R", "Supplementary_Figures",
-            sprintf("Supplementary_Figure_S%02d.R", setdiff(1:17, 7)))
+            sprintf("Supplementary_Figure_S%02d.R", 1:17))
 )
 
 report_paths <- function(paths, label) {
