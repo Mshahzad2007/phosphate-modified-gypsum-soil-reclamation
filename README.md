@@ -41,7 +41,7 @@ All archived scripts use repository-relative source paths under `data/`, assumin
 | Supplementary S04 | `data/SEM_PEG.xlsx` | Present |
 | Supplementary S05 | `data/Phosphate_Primed_Gypsum.xlsx` | Present |
 | Supplementary S06 | `data/Conventional_Treatments.xlsx`, `data/SO4_GP_PEG_Experiment.xlsx` | Present |
-| Supplementary S07 | `data/Conventional_Treatments.xlsx` (`data` and `P+GP` worksheets) | Script present; full execution/figure comparison not yet verified |
+| Supplementary S07 | `data/Conventional_Treatments.xlsx` (`data` and `P+GP` worksheets) | Present |
 | Supplementary S08–S10 | `data/Conventional_Treatments.xlsx` | Present |
 | Supplementary S11 | `data/validation.xlsx` (`validation` sheet) | Present; photos are intentionally not published |
 | Supplementary S12 | `data/Conventional_Treatments.xlsx` including `P+GP` | Present |
