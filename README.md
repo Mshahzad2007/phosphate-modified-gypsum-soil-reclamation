@@ -43,7 +43,7 @@ All archived scripts use repository-relative source paths under `data/`, assumin
 | Supplementary S06 | `data/Conventional_Treatments.xlsx`, `data/SO4_GP_PEG_Experiment.xlsx` | Present |
 | Supplementary S07 | `data/Conventional_Treatments.xlsx` (`data` and `P+GP` worksheets) | Present |
 | Supplementary S08–S10 | `data/Conventional_Treatments.xlsx` | Present |
-| Supplementary S11 | `data/validation.xlsx` (`validation` sheet) | Present; photos are intentionally not published |
+| Supplementary S11 | `data/validation.xlsx` (`validation` sheet) | Present |
 | Supplementary S12 | `data/Conventional_Treatments.xlsx` including `P+GP` | Present |
 | Supplementary S13 | Treatment-level values embedded in the R script | Can regenerate the displayed figure; raw sequencing/ASV pipeline is not included |
 | Supplementary S14–S17 | `data/Conventional_Treatments.xlsx` | Present |
