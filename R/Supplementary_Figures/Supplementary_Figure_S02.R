@@ -214,7 +214,7 @@ h_marker_df <- tibble(
 # ----------------------------------------------------------------------------
 # 6. CLEAN TYPOGRAPHY FOR SMALL PANELS (NO FACET STRIPS OR BOXES)
 # ----------------------------------------------------------------------------
-font_family <- "Arial"
+font_family <- if (.Platform$OS.type == "windows") "Arial" else "sans"
 
 panel_theme <- function(show_left_axis, show_bottom_axis, show_y_title) {
   theme_classic(base_family = font_family, base_size = 8.8) +
@@ -364,7 +364,7 @@ fig_s2 <- (treatment_grid / shared_refs) +
   plot_layout(heights = c(ref_ratio_top, ref_ratio_bottom)) &
   theme(plot.background = element_rect(fill = "white", colour = NA))
 
-print(fig_s2)
+if (interactive()) print(fig_s2)
 
 # ----------------------------------------------------------------------------
 # 9. EXPORT: WORD PNG + HIGH-RES TIFF + NATURE VECTOR PDF
