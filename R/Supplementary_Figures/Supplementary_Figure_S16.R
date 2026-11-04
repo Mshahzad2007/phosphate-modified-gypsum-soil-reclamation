@@ -97,7 +97,7 @@ time_stamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
 figure_width_in  <- 8.60
 figure_height_in <- 10.75
 figure_dpi       <- 600
-base_font        <- "Arial"
+base_font        <- if (.Platform$OS.type == "windows") "Arial" else "sans"
 
 treatment_levels <- c("CK", "GP", "PEG")
 
@@ -690,7 +690,7 @@ fig_s16 <- patchwork::wrap_plots(
   design = layout_design
 )
 
-print(fig_s16)
+if (interactive()) print(fig_s16)
 
 
 # 9. EXPORT FIGURE, STATISTICS, AND DATA ----------------------------------------
