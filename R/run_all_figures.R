@@ -7,7 +7,7 @@
 #
 # Prerequisite: run R/install_dependencies.R first.
 # Source files, statistical models, and display settings are not modified.
-# S07 is intentionally excluded until its original R script is supplied.
+# All archived supplementary scripts S01-S17, including S07, are included.
 
 if (!dir.exists("R") || !dir.exists("data") || !file.exists("README.md")) {
   stop("Run from the repository root (containing README.md, R/ and data/).")
@@ -25,7 +25,7 @@ source("R/reproducibility_preflight.R", local=TRUE)
 main_scripts <- file.path("R", sprintf("Figure_%02d.R", 2:6))
 supp_scripts <- file.path(
   "R", "Supplementary_Figures",
-  sprintf("Supplementary_Figure_S%02d.R", setdiff(1:17, 7))
+  sprintf("Supplementary_Figure_S%02d.R", 1:17)
 )
 scripts <- switch(
   scope,
