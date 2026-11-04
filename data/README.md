@@ -5,13 +5,13 @@ The three soil and chemistry workbooks described below are reduced copies of the
 ## Workbooks and retained worksheets
 
 ### `Conventional_Treatments.xlsx`
-- `data` — primary long-format soil and plant variables; used by Figures 03–06 and Supplementary Figures 08, 10, 12, 14–17.
+- `data` — primary long-format soil and plant variables; used by Figures 03–06 and Supplementary Figures 07–08, 10, 12, 14–17.
 - `Ca_7_30` — Ca-pool observations at days 7 and 30; used by Supplementary Figure 09.
 - `Ca_release` — Ca-release data; used by Supplementary Figure 06.
 - `P_dissolve` — dissolved P time series; used by Supplementary Figure 06.
 - `Phylum` — phylum-level microbial composition; used by Figure 05 and Supplementary Figure 17.
 - `Genus_repli` — replicate-level genus composition; used by Figure 05 and Supplementary Figure 17.
-- `P+GP` — additional P+GP treatment observations used when needed by Supplementary Figures 10 and 12.
+- `P+GP` — additional P+GP treatment observations used when needed by Supplementary Figures 07, 10 and 12.
 
 ### `Phosphate_Primed_Gypsum.xlsx`
 - `data` — phosphate-dose data; used by Supplementary Figure 05.
@@ -64,5 +64,5 @@ The original **`data/validation.xlsx`** workbook contains the `validation` works
 
 - The three reduced workbooks contain the measured values needed by the listed scripts. Formula cells in those reduced copies were replaced with saved calculated values so that R can read the results consistently without depending on Excel recalculation. Keep the original workbooks separately if spreadsheet formulas or formatting are needed.
 - The figure scripts look for inputs in the repository's `data/` directory, while also allowing a local copy in the working directory or parent directories.
-- The required **numerical inputs** are now present. Figure 03's plant montage and Figure S11's photographs are intentionally not provided, so their complete photographic panels cannot be recreated from this repository alone. The script for Figure S07 is also absent. The Figure S13 script uses reported summaries instead of recomputing the first three panels from raw sequencing reads.
+- The required **numerical inputs** are now present. Figure 03's plant montage and Figure S11's photographs are intentionally not provided, so their complete photographic panels cannot be recreated from this repository alone. Supplementary Figure S07 uses both the `data` and `P+GP` worksheets. The Figure S13 script uses reported summaries instead of recomputing the first three panels from raw sequencing reads.
 - Treat all inputs as experimental source data. Do not replace missing observations with simulated or practice values.
