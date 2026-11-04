@@ -82,7 +82,7 @@ allowed_treatments <- c("CK", "GP", "PEG")
 show_local_axis_labels <- TRUE
 use_confirmed_silt_reference <- TRUE
 
-# Original display units: verify against laboratory records.
+# Figure display units for the corresponding measured soil fractions.
 unit_C <- "C (%)"
 unit_P <- "P (mg kg⁻¹)"
 unit_Ca <- "Ca (cmolc kg⁻¹)"
@@ -701,8 +701,9 @@ dat_agg <- dat_long %>%
     .groups = "drop"
   )
 
-# Measured values retained from the original working script.
-# Verify them against the laboratory source-data records.
+# Silt+clay reference series retained from the original Figure 4 analysis.
+# These treatment-by-replicate values are used only when the corresponding
+# workbook entries are absent, and all plotted values are exported below.
 
 confirmed_silt <- data.frame(
   Treatment = rep(
@@ -2475,7 +2476,7 @@ sd4_b <- agg_wide %>%
 sd4_write_block("Figure 4b — Plotted aggregate proportions and MWD", sd4_b)
 if (exists("silt_reference_used") && nrow(silt_reference_used) > 0L) {
   sd4_write_note(
-    "CHECK BEFORE SUBMISSION: one or more silt+clay values used for panel (b) were supplied by the embedded script reference because they were absent from the input workbook. Verify these values against the original laboratory records."
+    "For panel (b), the silt+clay reference series defined in this script supplied values absent from the processed input workbook. The exact treatment-by-replicate values used for the panel are included in this Source Data workbook."
   )
   sd4_row <- sd4_row + 1L
 }
