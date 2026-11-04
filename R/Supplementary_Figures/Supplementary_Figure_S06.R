@@ -65,7 +65,7 @@ journal_width_cm  <- 18.0
 journal_height_cm <- word_height_cm * journal_width_cm / word_width_cm
 
 # 3) STYLE --------------------------------------------------------------------
-FONT_FAMILY <- "Arial"
+FONT_FAMILY <- if (.Platform$OS.type == "windows") "Arial" else "sans"
 BASE_SIZE   <- 8.8
 
 col_map <- c(
@@ -336,7 +336,7 @@ final_fig <- p_a / p_b +
   patchwork::plot_layout(heights = c(0.92, 1.08)) &
   theme(plot.background = element_rect(fill = "white", colour = NA))
 
-print(final_fig)
+if (interactive()) print(final_fig)
 
 # 9) EXPORT -------------------------------------------------------------------
 out_png <- file.path(out_dir, "Fig_S6_Word_Portrait_600dpi.png")
