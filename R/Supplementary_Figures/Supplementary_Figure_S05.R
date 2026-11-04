@@ -66,7 +66,7 @@ journal_width_cm  <- 18.0
 journal_height_cm <- word_height_cm * journal_width_cm / word_width_cm
 
 # 3) GLOBAL STYLE --------------------------------------------------------------
-FONT_FAMILY <- "Arial"
+FONT_FAMILY <- if (.Platform$OS.type == "windows") "Arial" else "sans"
 BASE_SIZE   <- 8.8
 
 col_ca <- c(
@@ -542,7 +542,7 @@ final_fig <- (p_pH | p_SAP_hcl) / p_P +
     plot.background = element_rect(fill = "white", colour = NA)
   )
 
-print(final_fig)
+if (interactive()) print(final_fig)
 
 # 12) EXPORT -------------------------------------------------------------------
 word_png  <- file.path(out_dir, "Fig_S5_Word_Portrait_600dpi.png")
